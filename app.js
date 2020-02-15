@@ -5,7 +5,9 @@ class Trigger{
     }
     main(event){
         event.preventDefault();
-		UI.printValues(GetInput.getName());
+		UI.printName(GetInput.getName());
+		UI.printTimer(GetInput.getTimer());
+		UI.updateTimer(UI.printTimer)
 		UI.updateTimer(GetInput.getTimer());
     }
 }
@@ -25,12 +27,13 @@ class GetInput {
 }
 
 class UI{
-	static printValues(name){
+	static printName(name){
 		this.timerTitle = document.querySelector('.timerTitle').innerHTML = name;
 	}
-	static updateTimer(date){
+	static printTimer(date){
 		let now = new Date().getTime();
 		let distance = date - now;
+		let startTimer = '';
 		// Time calculations for days, hours, minutes and seconds
 		let days = Math.floor(distance / (1000 * 60 * 60 * 24));
 		let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -42,7 +45,20 @@ class UI{
 		document.querySelector('.hour').innerHTML = hours;
 		document.querySelector('.minute').innerHTML = minutes;
 		document.querySelector('.second').innerHTML = seconds;
-		
+
+		if(now >= date){
+			clearInterval(startTimer);
+			document.querySelector('.day').innerHTML = 'D';
+			document.querySelector('.hours').innerHTML = 'O';
+			document.querySelector('.minutes').innerHTML = 'N';
+			document.querySelector('.seconds').innerHTML = 'E';
+		}
+
+	}
+	static updateTimer(date){
+		let startTimer = setInterval( () =>  { 
+			this.printTimer(date);
+		}, 1000);
 	}
 }
 
