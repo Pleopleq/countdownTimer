@@ -4,33 +4,44 @@ class Trigger{
         this.form.addEventListener('submit', this.main.bind(this));
     }
     main(event){
-        event.preventDefault();
-		UI.printName(GetInput.getName());
-		UI.printTimer(GetInput.getTimer());
-		UI.updateTimer(UI.printTimer)
-		UI.updateTimer(GetInput.getTimer());
+		event.preventDefault();
+
+		let input = new GetInput();
+		let Ui = new UI();
+
+		const time = input.getTimer();
+		const nameOfTimer = input.getName();
+
+		Ui.printName(nameOfTimer);
+		Ui.printTimer(time);
+		Ui.updateTimer(time);
+		
     }
 }
 
 class GetInput {
-    static getName(){
+    getName(){
 		this.nameOfTimer = document.querySelector('.countName').value;
 		let timerName = this.nameOfTimer;
  		return timerName;
 	}
-	static getTimer(){
+	getTimer(){
 		let newTimer = this.timer = document.querySelector('.userCount').value;
-		// newTimer = new Date();
-		console.log(Date.parse(newTimer))
 		return Date.parse(newTimer);
 	}
 }
 
 class UI{
-	static printName(name){
+	constructor(){
+		this.day = document.querySelector('.day');
+		this.hour = document.querySelector('.hour');
+		this.minute = document.querySelector('.minute');
+		this.second = document.querySelector('.second');
+	}
+	printName(name){
 		this.timerTitle = document.querySelector('.timerTitle').innerHTML = name;
 	}
-	static printTimer(date){
+	printTimer(date){
 		let now = new Date().getTime();
 		let distance = date - now;
 		let startTimer = '';
@@ -41,29 +52,25 @@ class UI{
 		let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 		// select element
-		document.querySelector('.day').innerHTML = days;
-		document.querySelector('.hour').innerHTML = hours;
-		document.querySelector('.minute').innerHTML = minutes;
-		document.querySelector('.second').innerHTML = seconds;
+		this.day.innerHTML = days;
+		this.hour.innerHTML = hours;
+		this.minute.innerHTML = minutes;
+		this.second.innerHTML = seconds;
 
 		if(now >= date){
 			clearInterval(startTimer);
-			document.querySelector('.day').innerHTML = 'D';
-			document.querySelector('.hours').innerHTML = 'O';
-			document.querySelector('.minutes').innerHTML = 'N';
-			document.querySelector('.seconds').innerHTML = 'E';
+			this.day.innerHTML = 'D';
+			this.hour.innerHTML = 'O';
+			this.minute.innerHTML = 'N';
+			this.second.innerHTML = 'E';
 		}
 
 	}
-	static updateTimer(date){
+	updateTimer(date){
 		let startTimer = setInterval( () =>  { 
 			this.printTimer(date);
 		}, 1000);
 	}
 }
 
-
-new UI();
 new Trigger();
-new GetInput();
-
