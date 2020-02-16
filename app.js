@@ -6,8 +6,8 @@ class Trigger{
     main(event){
 		event.preventDefault();
 
-		let input = new GetInput();
-		let Ui = new UI();
+		const input = new GetInput();
+		const Ui = new UI();
 
 		const time = input.getTimer();
 		const nameOfTimer = input.getName();
