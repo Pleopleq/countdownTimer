@@ -15,15 +15,14 @@ class Trigger{
 		Ui.printName(nameOfTimer);
 		Ui.printTimer(time);
 		Ui.updateTimer(time);
-		
+
     }
 }
 
 class GetInput {
     getName(){
-		this.nameOfTimer = document.querySelector('.countName').value;
-		let timerName = this.nameOfTimer;
- 		return timerName;
+		let timerName = this.nameOfTimer = document.querySelector('.countName').value;
+		 return timerName;
 	}
 	getTimer(){
 		let newTimer = this.timer = document.querySelector('.userCount').value;
@@ -41,36 +40,36 @@ class UI{
 	printName(name){
 		this.timerTitle = document.querySelector('.timerTitle').innerHTML = name;
 	}
-	printTimer(date){
-		let now = new Date().getTime();
-		let distance = date - now;
-		let startTimer = '';
-		// Time calculations for days, hours, minutes and seconds
-		let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-		let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-		let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-		let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+	printTimer(date, isUp){
+			let now = new Date().getTime();
+			let distance = date - now;
+			// Time calculations for days, hours, minutes and seconds
+			let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-		// select element
-		this.day.innerHTML = days;
-		this.hour.innerHTML = hours;
-		this.minute.innerHTML = minutes;
-		this.second.innerHTML = seconds;
+			// select element
+				this.day.innerHTML = days;
+				this.hour.innerHTML = hours;
+				this.minute.innerHTML = minutes;
+				this.second.innerHTML = seconds;
+			
 
-		if(now >= date){
-			clearInterval(startTimer);
-			this.day.innerHTML = 'D';
-			this.hour.innerHTML = 'O';
-			this.minute.innerHTML = 'N';
-			this.second.innerHTML = 'E';
-		}
-
+			if(now >= date){
+				clearInterval(isUp);
+				this.day.innerHTML = 'D';
+				this.hour.innerHTML = 'O';
+				this.minute.innerHTML = 'N';
+				this.second.innerHTML = 'E';
+			}
 	}
+
 	updateTimer(date){
-		let startTimer = setInterval( () =>  { 
-			this.printTimer(date);
-		}, 1000);
+			const isUp = setInterval( () =>  {
+				this.printTimer(date, isUp);
+			}, 1000);
+		}
 	}
-}
 
 new Trigger();
