@@ -39,8 +39,11 @@ class UI{
 		this.timerTitle = document.querySelector('.timerTitle');
 	}
 	printName(name){
+		const alert = new Alert();
 		if(!this.timerTitle.innerHTML){
 			this.timerTitle.innerHTML = name;
+		} else {
+			alert.showAlert('Theres already a timer going on!')
 		}
 	}
 	printTimer(date, timerId){
@@ -78,5 +81,22 @@ class UI{
 			return timerId;
 		}
 	}
+
+class Alert {
+	constructor(){
+		this.alertDiv = document.querySelector('.alerts');
+	}
+	showAlert(textAlert){
+		const p = document.createElement('p');
+		const textNode = document.createTextNode(textAlert);
+		p.appendChild(textNode);
+		setTimeout( () =>  { 
+			this.alertDiv.removeChild(p);
+		}, 2000);
+		this.alertDiv.appendChild(p);
+	}
+}
+
+
 
 new Trigger();
