@@ -10,18 +10,20 @@ class Trigger{
 		const Ui = new UI();
 
 		const time = input.getTimer();
-		const nameOfTimer = input.getName();
+		const [nameOfTimer, counter] = input.getName();
 
-		Ui.printName(nameOfTimer);
+		Ui.printName(nameOfTimer, counter);
 		Ui.printTimer(time);
-		Ui.updateTimer(time);
+		Ui.updateTimer(time, nameOfTimer);
+		
     }
 }
 
 class GetInput {
     getName(){
+		let i = 0;
 		let timerName = this.nameOfTimer = document.querySelector('.countName').value;
-		 return timerName;
+		 return [timerName, i++ ];
 	}
 	getTimer(){
 		let newTimer = this.timer = document.querySelector('.userCount').value;
@@ -37,21 +39,23 @@ class UI{
 		this.second = document.querySelector('.second');
 		this.timerTitle = document.querySelector('.timerTitle');
 	}
-	printName(name){
+	printName(name, counter){
+		if(!counter < 2){
 			this.timerTitle.innerHTML = name;
-	}
-	printTimer(date, idTimer){
-		if(idTimer !== 3){
-			return console.log('theres already a counter');
 		}
+	}
+	printTimer(date, timerId){
 		let now = new Date().getTime();
 		let distance = date - now;
+		if(timerId !== 3){
+			return clearInterval(timerId);
+		}
 		// Time calculations for days, hours, minutes and seconds
 		let days = Math.floor(distance / (1000 * 60 * 60 * 24));
 		let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 		let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 		let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+		
 		// select element
 			this.day.innerHTML = days;
 			this.hour.innerHTML = hours;
@@ -59,20 +63,20 @@ class UI{
 			this.second.innerHTML = seconds;
 
 			if(now >= date){
-				clearInterval(idTimer);
+				clearInterval(timerId);
 				this.day.innerHTML = 'D';
 				this.hour.innerHTML = 'O';
 				this.minute.innerHTML = 'N';
 				this.second.innerHTML = 'E';
-		}
+			}
 	}
 
 	updateTimer(date){
-				const isUp = setInterval( () =>  {
-					this.printTimer(date, isUp);
-					console.log(isUp)
-					console.log(this)
+			 let timerId = setInterval( () =>  {
+						this.printTimer(date, timerId);
+						console.log(timerId);
 			}, 1000);
+			return timerId;
 		}
 	}
 
