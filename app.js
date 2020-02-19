@@ -10,20 +10,19 @@ class Trigger{
 		const Ui = new UI();
 
 		const time = input.getTimer();
-		const [nameOfTimer, counter] = input.getName();
-
-		Ui.printName(nameOfTimer, counter);
+		const nameOfTimer = input.getName();
+		
+		Ui.printName(nameOfTimer);
 		Ui.printTimer(time);
-		Ui.updateTimer(time, nameOfTimer);
+		Ui.updateTimer(time);
 		
     }
 }
 
 class GetInput {
     getName(){
-		let i = 0;
 		let timerName = this.nameOfTimer = document.querySelector('.countName').value;
-		 return [timerName, i++ ];
+		return timerName;
 	}
 	getTimer(){
 		let newTimer = this.timer = document.querySelector('.userCount').value;
@@ -39,8 +38,8 @@ class UI{
 		this.second = document.querySelector('.second');
 		this.timerTitle = document.querySelector('.timerTitle');
 	}
-	printName(name, counter){
-		if(!counter < 2){
+	printName(name){
+		if(!this.timerTitle.innerHTML){
 			this.timerTitle.innerHTML = name;
 		}
 	}
