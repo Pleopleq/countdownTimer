@@ -38,20 +38,29 @@ class UI{
 		this.second = document.querySelector('.second');
 		this.timerTitle = document.querySelector('.timerTitle');
 	}
+
 	printName(name){
 		const alert = new Alert();
+
+		//Checking if theres already a Title. If it is, show the alert;
+
 		if(!this.timerTitle.innerHTML){
 			this.timerTitle.innerHTML = name;
 		} else {
 			alert.showAlert('Theres already a timer going on!')
 		}
 	}
+
 	printTimer(date, timerId){
 		let now = new Date().getTime();
 		let distance = date - now;
+
+		// Checking if theres another timer going on. if it is, end it. Only allow one timer
+
 		if(timerId !== 3){
 			return clearInterval(timerId);
 		}
+
 		// Time calculations for days, hours, minutes and seconds
 		let days = Math.floor(distance / (1000 * 60 * 60 * 24));
 		let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -79,8 +88,8 @@ class UI{
 						console.log(timerId);
 			}, 1000);
 			return timerId;
-		}
 	}
+}
 
 class Alert {
 	constructor(){
