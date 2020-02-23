@@ -24,6 +24,7 @@ class GetInput {
 		let timerName = this.nameOfTimer = document.querySelector('.countName').value;
 		return timerName;
 	}
+
 	getTimer(){
 		let newTimer = this.timer = document.querySelector('.userCount').value;
 		return Date.parse(newTimer);
@@ -47,6 +48,7 @@ class UI{
 		if(!this.timerTitle.innerHTML){
 			this.timerTitle.innerHTML = name;
 		} else {
+
 			alert.showAlert('Theres already a timer going on!')
 		}
 	}
@@ -66,14 +68,14 @@ class UI{
 		let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 		let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 		let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-		
-		// select element
-			this.day.innerHTML = days;
-			this.hour.innerHTML = hours;
-			this.minute.innerHTML = minutes;
-			this.second.innerHTML = seconds;
+	
+		this.day.innerHTML = days;
+		this.hour.innerHTML = hours;
+		this.minute.innerHTML = minutes;
+		this.second.innerHTML = seconds;
 
 			if(now >= date){
+
 				clearInterval(timerId);
 				this.day.innerHTML = 'D';
 				this.hour.innerHTML = 'O';
